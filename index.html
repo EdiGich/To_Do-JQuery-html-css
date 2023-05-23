@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+</head>
+<body>
+
+    <h1 class="animate__animated animate__backInRight">To Do List</h1>
+
+    
+    <div class="container">
+        <input type="text" class="txtb" placeholder="Add a task">
+        <div class="notcomp">
+            <h3>Not Complete</h3> 
+        </div>
+
+        <div class="comp">
+            <h3>Completed</h3>
+        </div>
+    </div>
+
+
+<p id="congrats" onclick="closeCongrats()">
+Congrats! Click to close!
+</p> 
+
+   <!-- <script type="text/javascript">
+    //     $(".txtb").on("keyup", function(e){  
+    //         //13 means enter button
+    //         if(e.keyCode == 13 && $(".txtb").val() != "")
+            
+    //         {
+    //             //create a new div element with class "task" ans set its text
+    //             //to the value of an input field with class "txtb"
+    //             //then it creates a new i element with the class "fas fa-trash-alt" and sets its click event to remove the
+    //             //parent element of this i element after fading it out
+    //             var task = $("<div class='task'></div").text($(".txtb").val());//creates a div class and adds text from the input txtb into the div class
+    //             var del = $("<i class='fas fa-trash-alt'></i>").click(function(){ //on click function for the delete icon
+    //                 var p= $(this).parent();
+    //                 p.fadeOut(function(){//fades out the text added to remove it
+    //                     p.remove();//then removes the text
+    //                 });
+    //                 checkTasksCompletion(); // Check if all tasks are completed
+    //             });
+
+    //             var check = $("<i class='fas fa-check'></i>").click(function(){//clicking the check icon removes it from the "Not complete" div
+    //                 var p= $(this).parent();
+    //                 p.fadeOut(function(){
+    //                     $(".comp").append(p);//the tsk is appended to the "complete" div
+    //                     p.fadeIn();
+    //                 });
+    //                 $(this).remove();//removes the chech- icon from the appended task in the "Complete" div
+    //                 checkTasksCompletion(); // Check if all tasks are completed
+    //             });
+
+    //             task.append(del, check);
+    //             $(".notcomp").append(task);
+            
+    //             $(".txtb").val(""); //to clear the input
+    //             checkTasksCompletion(); // Check if all tasks are completed
+    //         }
+    //     });
+
+    //     function checkTasksCompletion() {
+    //         var notCompletedTasks = $(".notcomp").children().length;
+    //         if (notCompletedTasks === 0) {
+    //             $("#congrats").css("visibility", "visible");
+    //         } else {
+    //             $("#congrats").css("visibility", "hidden");
+    //         }
+    //     }
+    //     $(document).ready(function() {
+    //     checkTasksCompletion(); // Check if all tasks are completed on page load
+    // });
+    </script> -->
+    
+    <!-----------------------------------------------------------------------------------------------------
+    <script type="text/javascript">
+    $(".txtb").on("keyup", function(e) {
+        // 13 means enter button
+        if (e.keyCode == 13 && $(".txtb").val() != "") {
+            var task = $("<div class='task'></div>").text($(".txtb").val());
+            var del = $("<i class='fas fa-trash-alt'></i>").click(function() {
+                var p = $(this).parent();
+                p.fadeOut(function() {
+                    p.remove();
+                    checkTasksCompletion(); // Check if all tasks are completed
+                });
+            });
+
+            var check = $("<i class='fas fa-check'></i>").click(function() {
+                var p = $(this).parent();
+                p.fadeOut(function() {
+                    $(".comp").append(p);
+                    p.fadeIn();
+                    checkTasksCompletion(); // Check if all tasks are completed
+                });
+                $(this).remove();
+            });
+
+            task.append(del, check);
+            $(".notcomp").append(task);
+
+            $(".txtb").val("");
+            checkTasksCompletion(); // Check if all tasks are completed
+        }
+    });
+
+    function checkTasksCompletion() {
+        var notCompletedTasks = $(".notcomp").children().length;
+        if (notCompletedTasks === 0) {
+            $("#congrats").css("visibility", "visible");
+        } else {
+            $("#congrats").css("visibility", "hidden");
+        }
+    }
+
+    function updateCongratsMessage() {
+        $.ajax({
+            url: "/checkTasksCompletion",
+            method: "GET",
+            success: function(response) {
+                if (response === "completed") {
+                    $("#congrats").css("visibility", "visible");
+                } else {
+                    $("#congrats").css("visibility", "hidden");
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        checkTasksCompletion(); // Check if all tasks are completed on page load
+
+        setInterval(updateCongratsMessage, 1000); // Check the completion status every 5 seconds
+    });
+</script>
+------------------------------------------------------------------------------------------------------>
+
+<script type="text/javascript">
+    $(".txtb").on("keyup", function(e) {
+        // 13 means enter button
+        if (e.keyCode == 13 && $(".txtb").val() != "") {
+            var task = $("<div class='task'></div>").text($(".txtb").val());
+            var del = $("<i class='fas fa-trash-alt'></i>").click(function() {
+                var p = $(this).parent();
+                p.fadeOut(function() {
+                    p.remove();
+                    checkTasksCompletion(); // Check if all tasks are completed
+                });
+            });
+
+            var check = $("<i class='fas fa-check'></i>").click(function() {
+                var p = $(this).parent();
+                p.fadeOut(function() {
+                    $(".comp").append(p);
+                    p.fadeIn();
+                    checkTasksCompletion(); // Check if all tasks are completed
+                });
+                $(this).remove();
+            });
+
+            task.append(del, check);
+            $(".notcomp").append(task);
+
+            $(".txtb").val("");
+            checkTasksCompletion(); // Check if all tasks are completed
+        }
+    });
+
+    function checkTasksCompletion() {
+        var notCompletedTasks = $(".notcomp").children().length;
+        if (notCompletedTasks === 1) {
+            $("#congrats").css("visibility", "visible");
+        } else {
+            $("#congrats").css("visibility", "hidden");
+        }
+    }
+
+    $(document).ready(function() {
+        checkTasksCompletion(); // Check if all tasks are completed on page load
+
+        setTimeout(checkTasksCompletion, 100); // Check the completion status after 1 second
+        $("#congrats").css("visibility", "hidden");
+    });
+    
+</script>
+
+<script type="text/javascript">
+    function closeCongrats() {
+        $("#congrats").css("visibility", "hidden");
+
+        setTimeout(function() {
+            closeCongrats();
+        }, 3000); 
+
+    }
+    
+    // Rest of your code...
+    $(document).ready(function() {
+        setTimeout(function() {
+            closeCongrats();
+        }, 500); // 0.5 seconds delay (500 milliseconds)
+    });
+     // Rest of your code...
+
+</script>
+
+
+</body>
+</html>
